@@ -4,9 +4,9 @@ import {
   SafeAreaView, Image, View, Text, TextInput, TouchableOpacity,
 } from 'react-native';
 import styled from 'styled-components/native';
-import topImg from '../../assets/Home/middleImg.png';
+import topImg from '../../../assets/promoteText.png';
 
-const Login = ({ navigation }) => {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isChecked, setIsChecked] = useState(false);
@@ -47,9 +47,7 @@ const Login = ({ navigation }) => {
       </Buttons>
     </BackGround>
   );
-};
-
-export default Login;
+}
 
 const BackGround = styled(SafeAreaView)`
   flex: 1;

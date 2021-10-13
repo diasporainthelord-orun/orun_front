@@ -4,28 +4,28 @@ import {
   Image, SafeAreaView, TouchableOpacity, Text, View,
 } from 'react-native';
 import styled from 'styled-components/native';
-import topImg from '../../assets/Home/topImg.png';
-import middleImg from '../../assets/Home/middleImg.png';
-import bottomImg1 from '../../assets/Home/bottomImg1.png';
-import bottomImg2 from '../../assets/Home/bottomImg2.png';
+import mainImage from '../../../assets/mainImage.png';
+import promoteText from '../../../assets/promoteText.png';
+import orunTextKO from '../../../assets/orunTextKO.png';
+import orunTextEN from '../../../assets/orunTextEN.png';
 
-const Home = ({ navigation }) => {
-  const [bottomImg, setBottomImg] = useState(bottomImg1);
+export default function Splash({ navigation }) {
+  const [bottomImg, setBottomImg] = useState(orunTextKO);
   const [isButton, setIsButton] = useState(false);
 
   const changeBottomImg = () => {
-    setTimeout(() => setBottomImg(bottomImg2), 2000);
+    setTimeout(() => setBottomImg(orunTextEN), 2000);
     setTimeout(() => setIsButton(true), 4000);
   };
 
   useEffect(() => {
-    changeBottomImg(bottomImg2);
+    changeBottomImg(orunTextEN);
   }, []);
 
   return (
     <BackGround>
-      <TopImage source={topImg} />
-      <MidImage source={middleImg} />
+      <TopImage source={mainImage} />
+      <MidImage source={promoteText} />
       {isButton
         ? (
           <ButtonView>
@@ -37,9 +37,7 @@ const Home = ({ navigation }) => {
         : <BottomImg source={bottomImg} />}
     </BackGround>
   );
-};
-
-export default Home;
+}
 
 const BackGround = styled(SafeAreaView)`
   flex: 1;
