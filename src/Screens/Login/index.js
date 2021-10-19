@@ -1,15 +1,30 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  SafeAreaView, Image, View, Text, TextInput, TouchableOpacity,
+  SafeAreaView, Image, View, Text, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
 import styled from 'styled-components/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import topImg from '../../../assets/promoteText.png';
+// APIs
+import { logIn } from '../../Api/Splash/api';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+
+  const handleLogin = async (mail, pwd) => {
+    let result;
+    if (!mail) return Alert.alert('로그인에 실패하였습니다.', '이메일이 입력되지 않았습니다.', [{ text: '확인' }]);
+    if (!pwd) return Alert.alert('로그인에 실패하였습니다.', '비밀번호가 입력되지 않았습니다.', [{ text: '확인' }]);
+    try {
+      result = await logIn({ email: mail, password: pwd });
+    } catch (err) {
+      return Alert.alert('로그인에 실패하였습니다.', '네트워크 에러', [{ text: '확인' }]);
+    }
+    AsyncStorage.setItem('token', result.token);
+    return Alert.alert('로그인 되었습니다!', '^^', [{ text: '확인', onPress: () => navigation.navigate('Home') }]);
+  };
 
   return (
     <BackGround>
@@ -30,17 +45,17 @@ export default function Login({ navigation }) {
         />
       </Inputs>
       <Buttons>
-        <LogIn>
+        <LogIn onPress={handleLogin}>
           <LogInText>로그인</LogInText>
         </LogIn>
         <FindInfoAndSignUp>
-          <FindEmail>
+          <FindEmail onPress={() => navigation.navigate('FindEmail')}>
             <Texts>이메일 찾기</Texts>
           </FindEmail>
-          <FindPassword>
+          <FindPassword onPress={() => navigation.navigate('FindPassword')}>
             <Texts>비밀번호 찾기</Texts>
           </FindPassword>
-          <SignUp>
+          <SignUp onPress={() => navigation.navigate('SignUp')}>
             <Texts>회원가입</Texts>
           </SignUp>
         </FindInfoAndSignUp>
@@ -120,10 +135,4 @@ const Texts = styled(Text)`
   fontSize: 13px;
   margin-left: 10px;
   margin-right: 10px;
-`;
-
-const BarIndent = styled(Text)`
-  color: #BFBFBF;
-  margin-left: 6px;
-  margin-right: 6px;
 `;
