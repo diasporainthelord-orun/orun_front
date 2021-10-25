@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Splash from './src/Screens/Splash/index';
+import Splash from './src/Screens/Splash/old_index';
 import Login from './src/Screens/Login/index';
 import FindEmail from './src/Screens/Login/FindEmail/index';
 import FindPassword from './src/Screens/Login/FindPassword/index';

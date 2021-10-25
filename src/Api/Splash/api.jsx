@@ -3,9 +3,9 @@ import getEnvAPI from '../../../environment';
 
 const { ENTRY_POINT } = getEnvAPI();
 
-export function verifyUser(accessToken) {
+export function verifyToken(token) {
   return axios
-    .post(`${ENTRY_POINT}/verify-user`, { accessToken });
+    .post(`${ENTRY_POINT}/verify-token`, { token });
 }
 
 export function getAccessToken(refreshToken) {
