@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import topImg from '../../../assets/promoteText.png';
 // APIs
-import { logIn } from '../../Api/Splash/api';
+import { logIn } from '../../Api/Login/api';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -22,7 +22,11 @@ export default function Login({ navigation }) {
     } catch (err) {
       return Alert.alert('로그인에 실패하였습니다.', '네트워크 에러', [{ text: '확인' }]);
     }
-    AsyncStorage.setItem('token', result.token);
+
+    await AsyncStorage.setItem('accessToken', result.accessToken);
+    await AsyncStorage.setItem('accessIssued', result.accessIssued);
+    await AsyncStorage.setItem('refreshToken', result.refreshToken);
+
     return Alert.alert('로그인 되었습니다!', '^^', [{ text: '확인', onPress: () => navigation.navigate('Home') }]);
   };
 
